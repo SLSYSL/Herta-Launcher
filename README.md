@@ -4,7 +4,7 @@
 ## 系列项目
 | 项目 | 版本 | 描述 |
 |------|------|------|
-| **[CODMW GUI II](https://github.com/SLSYSL/Herta-CODMW-GUI-II)** | V2.8.0 | 使命召唤：现代战争 2019 - 游戏图形用户界面v2.0启动器 |
+| **[CODMW GUI II](https://github.com/SLSYSL/Herta-CODMW-GUI-II)** | V2.8.0 Beta 1 | 使命召唤：现代战争 2019 - 游戏图形用户界面v2.0启动器 |
  
 ## 贡献者
 - SLSYSL(LANREN) - 开发者
