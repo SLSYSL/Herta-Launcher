@@ -59,10 +59,16 @@ def main(is_hot_updata: bool = False) -> None:
 
     # 开启 Xaml 热更新
     if is_hot_updata:
-        watcher = XamlWatcher(
-            watch_paths=["./xaml", custom_xaml_path],
-            callback=lambda *args, **kwargs: on_xaml_change(*args, app=app, **kwargs),
-        )
+        if hasattr(sys, "_MEIPASS"):
+            watcher = XamlWatcher(
+                watch_paths=[custom_xaml_path],
+                callback=lambda *args, **kwargs: on_xaml_change(*args, app=app, **kwargs),
+            )
+        else:
+            watcher = XamlWatcher(
+                watch_paths=["./xaml", custom_xaml_path],
+                callback=lambda *args, **kwargs: on_xaml_change(*args, app=app, **kwargs),
+            )
         watcher.start()
 
     # 从配置文件读取并设置主题
