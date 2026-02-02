@@ -8,7 +8,6 @@ venv/
 *.sqlite3
 *.log
 *.pyc
-*.spec
 
 # VSCode
 .vscode/
