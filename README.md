@@ -1,6 +1,7 @@
 <h1 align="center">黑塔终端</h1>
 
 > 对游戏进行自动化操作的辅助工具
+
 > 本项目将 [PyWebWinUI3](https://github.com/Haruna5718/PyWebWinUI3) 作为依赖且进行了修改
 
 ## 项目特点
