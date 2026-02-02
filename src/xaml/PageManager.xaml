@@ -1,0 +1,21 @@
+<Page path="pagemanager" icon="" name="自定义页面管理器" title=" 自定义页面管理器">
+    <Box>
+        <Horizontal>
+            <Vertical align="left">
+                <Text> 添加新页面</Text>
+                <Text type="description">请勿添加错误格式 Xaml (会导致软件异常)</Text>
+            </Vertical>
+            <Space />
+            <Button value="add_page"> 选择文件</Button>
+        </Horizontal>
+    </Box>
+    <Repeat data="{custom_xaml_list_len}">
+        <Box>
+            <Horizontal>
+                <Text> {custom_xaml_{i}_name}</Text>
+                <Space />
+                <Button value="remove_{i}_custom_xaml">删除</Button>
+            </Horizontal>
+        </Box>
+    </Repeat>
+</Page>

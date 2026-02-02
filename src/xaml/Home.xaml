@@ -1,0 +1,38 @@
+<Page path="" icon="" name="主页" title=" 主页">
+    <!-- 欢迎区域 -->
+    <Box>
+        <Vertical align="left">
+            <Text type="title">欢迎使用黑塔终端</Text>
+            <Text type="description">介绍: 服务于游戏的辅助工具</Text>
+            <Text type="description">当前版本: {version}</Text>
+        </Vertical>
+    </Box>
+
+    <!-- 快速启动区域 -->
+    <!-- <Box>
+                <Text type="subtitle">快速启动</Text>
+                <Horizontal gap="12px" margin="10px 0">
+                    <Button action="launch_game" width="150px">启动游戏</Button>
+                    <Button action="open_settings" width="150px">系统设置</Button>
+                    <Button action="check_updates" width="150px">检查更新</Button>
+                </Horizontal>
+            </Box> -->
+
+    <!-- 功能卡片区域 -->
+    <!-- <Horizontal gap="20px">
+                <Box background="#f0f0f033" width="300px">
+                    <Vertical>
+                        <Text type="subtitle">系统状态</Text>
+                        <Text type="description">CPU: 24% | 内存: 1.2GB</Text>
+                        <Text type="description">网络: 已连接 | 更新: 无可用</Text>
+                    </Vertical>
+                </Box>
+                <Box background="#f0f0f033" width="300px">
+                    <Vertical>
+                        <Text type="subtitle">最近活动</Text>
+                        <Text type="description">上次启动: 2026-01-09 20:34</Text>
+                        <Text type="description">启动次数: 152 次</Text>
+                    </Vertical>
+                </Box>
+            </Horizontal> -->
+</Page>

@@ -1,0 +1,16 @@
+<Page path="settings" icon="" name="设置" title=" 设置">
+    <Box>
+        <Horizontal>
+            <Vertical align="left">
+                <Text> 主题</Text>
+                <Text type="description">切换主体颜色 (浅色/深色模式)</Text>
+            </Vertical>
+            <Space />
+            <Select value="system_theme">
+                <Option value="light">浅色模式</Option>
+                <Option value="dark">深色模式</Option>
+                <Option value="system">使用系统设置</Option>
+            </Select>
+        </Horizontal>
+    </Box>
+</Page>

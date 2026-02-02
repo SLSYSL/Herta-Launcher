@@ -1,0 +1,9 @@
+bottle==0.13.4
+keyboard==0.13.5
+loguru==0.7.3
+pyautogui==0.9.54
+pygetwindow==0.0.9
+pyperclip==1.9.0
+pywebview==6.1
+pywin32==308
+watchdog==6.0.0

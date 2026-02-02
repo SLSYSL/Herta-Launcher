@@ -1,0 +1,11 @@
+<Page path="about" icon="" name="关于" title=" 关于">
+    <Box>
+        <Vertical align="left">
+            <Text type="title">关于黑塔终端</Text>
+            <Text type="description">版本: v{version}</Text>
+            <Text type="description">开发者: DusKal / LANREN / monocolotion</Text>
+            <Text type="description">技术栈: Python + PyWebWinUI3(PyWebView + Svelte + XAML)</Text>
+            <Text type="description" url="https://github.com/SLSYSL/Herta-Launcher">项目地址: https://github.com/SLSYSL/Herta-Launcher</Text>
+        </Vertical>
+    </Box>
+</Page>

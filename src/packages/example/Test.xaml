@@ -1,0 +1,269 @@
+<Page path="test" name="Test" badge="{test_badge}" state="{test_state}">
+    <Box>
+        <Horizontal>
+            <Text>Badge</Text>
+            <Space />
+            <Select value="test_state">
+                Type
+                <Option value="">Disable</Option>
+                <Option value="0">Attention</Option>
+                <Option value="1">Success</Option>
+                <Option value="2">Warning</Option>
+                <Option value="3">Critical</Option>
+            </Select>
+            <Input value="test_badge">Badge text</Input>
+        </Horizontal>
+    </Box>
+    <Box>
+        <Horizontal>
+            <Text>Notice</Text>
+            <Space />
+            <Button value="test_noticeSample">Sample Notice</Button>
+        </Horizontal>
+        <Horizontal>
+            <Button value="test_noticeCreate">Create Notice</Button>
+            <Space />
+            <Select value="test_noticeType">
+                Type
+                <Option value="0">Information</Option>
+                <Option value="1">Success</Option>
+                <Option value="2">Warning</Option>
+                <Option value="3">Error</Option>
+            </Select>
+            <Input value="test_noticeTitle">Title</Input>
+            <Input value="test_noticeDescription">Description</Input>
+        </Horizontal>
+    </Box>
+    <Line />
+    <Box>
+        <Horizontal>
+            <Text>Disable</Text>
+            <Space />
+            <Switch value="test_disabled"/>
+        </Horizontal>
+    </Box>
+    <Box>
+        <Horizontal>
+            <Text>Text</Text>
+            <Space />
+            <Select value="test_textType">
+                Type
+                <Option value="default">Default</Option>
+                <Option value="title">Title</Option>
+                <Option value="description">Description</Option>
+            </Select>
+            <Input value="test_textContent">Content</Input>
+            <Input value="test_textUrl">URL</Input>
+        </Horizontal>
+        <Horizontal>
+            <Text type="{test_textType}" url="{test_textUrl}" disabled="{test_disabled}">{test_textContent}</Text>
+        </Horizontal>
+    </Box>
+    <Box>
+        <Horizontal>
+            <Text>Input</Text>
+            <Space />
+            <Select value="test_inputType">
+                Type
+                <Option value="text">Text</Option>
+                <Option value="number">Number</Option>
+            </Select>
+            <Input value="test_InputText" />
+        </Horizontal>
+        <Horizontal>
+            <Input value="test_input" type="{test_inputType}" disabled="{test_disabled}">{test_InputText}</Input>
+            <Space />
+            <Text type="description">Value: {test_input}</Text>
+        </Horizontal>
+    </Box>
+    <Box>
+        <Horizontal>
+            <Text>Button</Text>
+            <Space />
+            <Select value="test_buttonType">
+                Type
+                <Option value="click">Click</Option>
+                <Option value="toggle">Toggle</Option>
+                <Option value="link">Link</Option>
+            </Select>
+            <Input value="test_buttonUrl">URL</Input>
+        </Horizontal>
+        <Horizontal>
+            <Button value="test_button" type="{test_buttonType}" url="{test_buttonUrl}" disabled="{test_disabled}">Button</Button>
+            <Space />
+            <Text type="description">Value: {test_button}</Text>
+        </Horizontal>
+    </Box>
+    <Box>
+        <Horizontal>
+            <Text>Select</Text>
+            <Space />
+            <Input value="test_selectText">Text</Input>
+        </Horizontal>
+        <Horizontal>
+            <Select value="test_select" disabled="{test_disabled}">
+                {test_selectText}
+                <Option value="option1">Option1</Option>
+                <Option value="option2">Option2</Option>
+                <Option value="option3">Option3</Option>
+            </Select>
+            <Space />
+            <Text type="description">Value: {test_select}</Text>
+        </Horizontal>
+    </Box>
+    <Box>
+        <Horizontal>
+            <Text>Slider</Text>
+            <Space />
+            <Select value="test_sliderType">
+                Type
+                <Option value="horizontal">Horizontal</Option>
+                <Option value="vertical">Vertical</Option>
+            </Select>
+        </Horizontal>
+        <Horizontal>
+            <Slider value="test_slider" type="{test_sliderType}" disabled="{test_disabled}"/>
+            <Space />
+            <Text type="description">Value: {test_slider}</Text>
+        </Horizontal>
+    </Box>
+    <Box>
+        <Horizontal>
+            <Text>ProgressBar</Text>
+            <Space />
+            <Slider value="test_progress"/>
+            <Select value="test_progressType">
+                Type
+                <Option value="progress">Progress</Option>
+                <Option value="running">Running</Option>
+                <Option value="paused">Paused</Option>
+                <Option value="success">Success</Option>
+                <Option value="error">Error</Option>
+            </Select>
+        </Horizontal>
+        <Horizontal>
+            <Progressbar type="{test_progressType}" data="{test_progress}" disabled="{test_disabled}"/>
+        </Horizontal>
+    </Box>
+    <Box>
+        <Horizontal>
+            <Text>Switch</Text>
+            <Space />
+            <Select value="test_switchAlign">
+                align
+                <Option value="right">Right</Option>
+                <Option value="left">Left</Option>
+            </Select>
+        </Horizontal>
+        <Horizontal>
+            <Switch value="test_switch" align="{test_switchAlign}" disabled="{test_disabled}"/>
+            <Space />
+            <Text type="description">Value: {test_switch}</Text>
+        </Horizontal>
+    </Box>
+    <Box>
+        <Horizontal>
+            <Text>Check</Text>
+            <Space />
+            <Select value="test_checkType">
+                Type
+                <Option value="two">Two</Option>
+                <Option value="three">Three</Option>
+            </Select>
+            <Select value="test_checkAlign">
+                align
+                <Option value="right">Right</Option>
+                <Option value="left">Left</Option>
+            </Select>
+        </Horizontal>
+        <Horizontal>
+            <Check value="test_checkd" type="{test_checkType}" align="{test_checkAlign}" disabled="{test_disabled}">Option</Check>
+            <Space />
+            <Text type="description">Value: {test_checkd}</Text>
+        </Horizontal>
+    </Box>
+    <Box>
+        <Horizontal>
+            <Text>Radio</Text>
+            <Space />
+            <Select value="test_radioAlign">
+                align
+                <Option value="right">Right</Option>
+                <Option value="left">Left</Option>
+            </Select>
+        </Horizontal>
+        <Horizontal>
+            <Radio value="option1" group="test_radio" align="{test_radioAlign}" disabled="{test_disabled}">Option1</Radio>
+            <Radio value="option2" group="test_radio" align="{test_radioAlign}" disabled="{test_disabled}">Option2</Radio>
+            <Radio value="option3" group="test_radio" align="{test_radioAlign}" disabled="{test_disabled}">Option3</Radio>
+            <Space />
+            <Text type="description">Value: {test_radio}</Text>
+        </Horizontal>
+    </Box>
+    <Box>
+        <Horizontal>
+            <Text>If</Text>
+            <Space />
+            <Switch value="test_if" align="left"/>
+        </Horizontal>
+        <Horizontal>
+            <If data="{test_if}" disabled="{test_disabled}">
+                <True>
+                    <Text>
+                        This text is displayed when value is True
+                    </Text>
+                </True>
+                <False>
+                    <Text>
+                        This text is displayed when value is False
+                    </Text>
+                </False>
+            </If>
+        </Horizontal>
+    </Box>
+    <Box>
+        <Horizontal>
+            <Text>Repeat</Text>
+            <Space />
+            <Input value="test_repeat" type="number" min="3">Amount</Input>
+        </Horizontal>
+        <Horizontal>
+            <Repeat data="{test_repeat+1}" disabled="{test_disabled}">
+                <Text>Children {i}</Text>
+            </Repeat>
+        </Horizontal>
+    </Box>
+    <Box>
+        <Horizontal>
+            <Text>Image</Text>
+            <Space />
+            <Input value="test_image"/>
+        </Horizontal>
+        <Horizontal>
+            <Image source="{test_image}" disabled="{test_disabled}"/>
+        </Horizontal>
+    </Box>
+    <Box>
+        <Horizontal>
+            <Text>Webview</Text>
+            <Space />
+            <Input value="test_webview"/>
+        </Horizontal>
+        <Horizontal>
+            <Webview source="{test_webview}" disabled="{test_disabled}"/>
+        </Horizontal>
+    </Box>
+    <!-- <Box>
+        <Horizontal>
+            <Text>Expender</Text>
+            <Space />
+            <Expender>
+                <Button>Content</Button>
+            </Expender>
+            <Space />
+        </Horizontal>
+    </Box> -->
+    <Box>
+        
+    </Box>
+</Page>
