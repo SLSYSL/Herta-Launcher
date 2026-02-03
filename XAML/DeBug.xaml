@@ -1,0 +1,22 @@
+<Page path="debug_settings" icon="" name="开发者功能" title=" 开发者功能">
+    <Box>
+        <Horizontal>
+            <Vertical align="left">
+                <Text> Xaml 热更新</Text>
+                <Text type="description">实时检测 Xaml 是否更新 (注意: 会额外占用性能)</Text>
+            </Vertical>
+            <Space />
+            <Switch value="hot_updata" />
+        </Horizontal>
+    </Box>
+    <Box>
+        <Horizontal>
+            <Vertical align="left">
+                <Text> 指令输出至弹窗</Text>
+                <Text type="description">将 Xaml 中指令输出至 Notice, 并取消对指定第三方程序输出</Text>
+            </Vertical>
+            <Space />
+            <Switch value="direct_output" />
+        </Horizontal>
+    </Box>
+</Page>
