@@ -3,7 +3,7 @@
         <Horizontal>
             <Vertical align="left">
                 <Text> 添加新页面</Text>
-                <Text type="description">请勿添加错误格式 Xaml (会导致软件异常)</Text>
+                <Text type="description">请勿添加错误格式 Xaml (会导致软件异常), 支持 zip 压缩包多文件添加</Text>
             </Vertical>
             <Space />
             <Button value="add_page"> 选择文件</Button>
