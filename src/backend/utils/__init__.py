@@ -1,6 +1,7 @@
 """src.backend.utils"""
 
 from .paths import get_cache_path, get_resource_path
+from .files import get_file_list, create_folder, move_file, extract_zip
 from .encode import get_icon_as_base64
 from .window import window_resize, active_window, set_window_topmost
 from .log import log_and_notice
@@ -16,5 +17,9 @@ __all__ = [
     "active_window",
     "set_window_topmost",
     "get_admin",
-    "restart_program"
+    "restart_program",
+    "get_file_list",
+    "create_folder",
+    "move_file",
+    "extract_zip",
 ]

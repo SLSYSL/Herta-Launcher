@@ -3,7 +3,7 @@
 
 import ctypes
 import sys
-
+from loguru import logger
 
 def get_admin() -> bool:
     """
@@ -33,10 +33,10 @@ def get_admin() -> bool:
 
         # 如果无法以管理员权限运行则报错
         if result <= 32:
-            print("无法以管理员权限运行，请手动以管理员身份运行此程序")
+            logger.error("无法以管理员权限运行，请手动以管理员身份运行此程序")
 
         return False
 
     except Exception as e:
-        print(f"请求管理员权限失败: {e}")
+        logger.error(f"请求管理员权限失败: {e}")
         return False

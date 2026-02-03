@@ -3,7 +3,7 @@
 
 import configparser
 from loguru import logger
-from backend.utils import get_cache_path
+from backend.utils import get_cache_path, create_folder
 from .defs import DEFAULT_CONFIG
 
 
@@ -19,14 +19,9 @@ def create_config() -> None:
     config_dir = config_path.parent
 
     # 创建配置目录
-    try:
-        config_dir.mkdir(parents=True, exist_ok=True)
-    except PermissionError as e:
-        logger.error("权限不足，无法创建日志目录: {}", e)
-        raise
-    except OSError as e:
-        logger.error("创建日志目录失败: {}", e)
-        raise
+    if not create_folder(config_dir):
+        logger.error("无法创建配置文件目录: {}", config_dir)
+        return
 
     # 检查配置文件是否已存在
     if not config_path.exists():

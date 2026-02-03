@@ -5,7 +5,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 from loguru import logger
-from backend.utils import get_cache_path
+from backend.utils import get_cache_path, create_folder
 
 
 def init_logger():
@@ -26,14 +26,9 @@ def init_logger():
     log_file = log_dir / f"HertaLauncher_{date_str}.log"
 
     # 创建日志目录
-    try:
-        log_dir.mkdir(parents=True, exist_ok=True)
-    except PermissionError as e:
-        logger.error("权限不足，无法创建日志目录: {}", e)
-        raise
-    except OSError as e:
-        logger.error("创建日志目录失败: {}", e)
-        raise
+    if not create_folder(log_dir):
+        logger.error("无法创建日志目录: {}", log_dir)
+        return
 
     # 移除默认的处理器
     logger.remove()
