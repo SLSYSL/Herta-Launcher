@@ -1,8 +1,9 @@
 # src.backend.core.handlers
 """前端处理"""
 
+import os
+import tempfile
 import time
-import shutil
 from pathlib import Path
 import pyperclip
 import pyautogui
@@ -14,11 +15,11 @@ from backend.utils import (
     active_window,
     set_window_topmost,
     get_cache_path,
-    get_resource_path,
-    get_icon_as_base64
+    get_file_list,
+    move_file,
+    extract_zip,
 )
 from backend.config import read_config, modify_config, remove_config
-from .pages import get_custom_pages
 
 
 def apply_config(app) -> None:
@@ -33,7 +34,9 @@ def apply_config(app) -> None:
     nav_value = read_config("UI", "nav_open", True)
     hot_updata = read_config("DEBUG", "hot_updata", False)
     direct_output = read_config("DEBUG", "direct_output", False)
-    custom_xaml_list = get_custom_pages()
+    custom_xaml_list = get_file_list(
+        get_cache_path(is_path=True) / "Custom Xaml", file_extension="xaml"
+    )
 
     # 输出日志
     logger.info("从配置读取主题: {}", theme_value)
@@ -48,7 +51,8 @@ def apply_config(app) -> None:
     app.values["hot_updata"] = hot_updata
     app.values["direct_output"] = direct_output
     app.values["custom_xaml_list_len"] = len(custom_xaml_list)
-    app.values["mwiii_icon"] = "data:image/x-icon;base64," + get_icon_as_base64(get_resource_path("./assets/cod20.ico"))
+
+    # 设置自定义 Xaml 页面变量
     for i, name in enumerate(custom_xaml_list):
         app.values[f"custom_xaml_{i}_name"] = name.split("\\")[-1]
         app.values[f"custom_xaml_{i}_path"] = name
@@ -72,41 +76,105 @@ def general_change(
     modify_config(section, option, new_value)
 
 
-def add_page(app, xaml_path: str) -> None:
+def _process_extracted_files(app, temp_dir: str) -> str:
+    """
+    处理解压缩后的文件
+
+    :param app: 应用实例
+    :param temp_dir: 临时目录路径
+    :type temp_dir: str
+    :return: 错误信息
+    """
+    error = ""
+
+    # 递归遍历临时目录所有文件
+    for root, _, files in os.walk(temp_dir):
+        for file_name in files:
+            # 获取文件完整路径
+            full_path = os.path.join(root, file_name)
+
+            # 提取文件后缀并统一小写
+            _, file_extension = os.path.splitext(file_name)
+            file_extension = file_extension.lstrip(".").lower()
+
+            # 初始化自定义路径
+            custom_path = None
+
+            # 分类 icon 与 xaml 文件
+            if file_extension == "xaml":
+                custom_path = get_cache_path(is_path=True) / "Custom Xaml"
+            elif file_extension == "ico":
+                logger.info("找到图标文件: {}", full_path)
+                # 获取自定义图标文件夹路径
+                custom_path = get_cache_path(is_path=True) / "Custom Icons"
+            else:
+                logger.info("跳过不支持的文件类型: {}", full_path)
+                continue
+
+            # 移动文件
+            move_error = move_file(full_path, str(custom_path))
+            if move_error != "":
+                error = f"文件移动失败: {move_error}"
+                log_and_notice(app, error, "error")
+
+    return error
+
+
+def add_page(app, file_path: str) -> None:
     """
     添加自定义 Xaml 页面
 
     :param app: 应用实例
-    :param xaml_path: Xaml 路径
-    :type xaml_path: str
+    :param file_path: 文件路径
+    :type file_path: str
     :return: None
     """
-    # 获取文件夹
-    folder = get_cache_path(is_path=True) / "Custom Xaml"
 
-    # 打印日志
-    logger.info("自定义 Xaml 文件路径: {}, %AppData% 路径: {}", xaml_path, folder)
+    # 判断是否为压缩包
+    if Path(file_path).suffix.lower() == ".zip":
+        # 初始化错误信息
+        error = ""
 
-    # 移动文件
-    try:
+        # 打印日志
+        logger.info("检测到压缩包: {}", file_path)
+
+        # 解压缩至临时目录
+        with tempfile.TemporaryDirectory() as temp_dir:
+            # 解压ZIP文件
+            success, extract_error = extract_zip(file_path, temp_dir)
+            if not success:
+                log_and_notice(app, extract_error, "error")
+                return
+
+            # 处理解压后的文件
+            error = _process_extracted_files(app, temp_dir)
+
+        if error:
+            return
+        else:
+            log_and_notice(app, "自定义 Xaml 已添加成功", "info")
+
+    else:
+        logger.info("检测到 Xaml 文件: {}", file_path)
+
+        # 获取文件夹
+        folder = get_cache_path(is_path=True) / "Custom Xaml"
+
+        # 打印日志
+        logger.info("自定义 Xaml 文件路径: {}, %AppData% 路径: {}", file_path, folder)
+
         # 移动文件
-        shutil.move(xaml_path, folder)
-
-        log_and_notice(app, "自定义页面已添加", "info")
-    except (FileNotFoundError, PermissionError) as e:
-        log_and_notice(app, f"文件操作错误: {e}", "error")
-    except shutil.Error as e:
-        log_and_notice(app, f"移动文件失败: {e}", "error")
-    except OSError as e:
-        log_and_notice(app, f"系统错误: {e}", "error")
-    except Exception as e:
-        log_and_notice(app, f"自定义页面添加失败: '{e}'", "error")
+        error = move_file(file_path, folder)
+        if error != "":
+            log_and_notice(app, f"自定义页面添加失败，文件移动出错: {error}", "error")
+        else:
+            log_and_notice(app, "自定义页面添加成功", "info")
 
 
 def remove_page(app, xaml_path: str) -> None:
     """
     移除自定义 Xaml 页面
-    
+
     :param app: 应用实例
     :param xaml_path: Xaml 路径
     :type xaml_path: str
@@ -120,6 +188,7 @@ def remove_page(app, xaml_path: str) -> None:
         log_and_notice(app, "自定义页面删除成功", "info")
     except Exception as e:
         log_and_notice(app, f"自定义页面删除时出错: {e}", "error")
+
 
 def send_command(app, command: dict, operation: str = "") -> None:
     """

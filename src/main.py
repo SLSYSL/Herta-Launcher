@@ -11,18 +11,19 @@ from backend.utils import (
     get_icon_as_base64,
     get_admin,
     get_resource_path,
+    create_folder,
 )  # , window_resize
 from backend.config import create_config, read_config
-from backend.core import register_handlers, apply_config, load_pages, create_custom_page_folder
+from backend.core import register_handlers, apply_config, load_pages, apply_icons
 from backend.dev import XamlWatcher, on_xaml_change
 
 
-def main(is_hot_updata: bool = False) -> None:
+def main(is_hot_update: bool = False) -> None:
     """
     主函数 (生产/开发环境通用)
 
     :param mode: 模式
-    :param is_hot_updata: Xaml 热更新
+    :param is_hot_update: Xaml 热更新
     :return: None
     """
     # 初始化日志
@@ -54,25 +55,38 @@ def main(is_hot_updata: bool = False) -> None:
     # 获取自定义 Xaml 路径
     custom_xaml_path = get_cache_path(is_path=True) / "Custom Xaml"
 
-    # 创建自定义页面文件夹
-    create_custom_page_folder()
+    # 获取自定义 ICON 路径
+    custom_icon_path = get_cache_path(is_path=True) / "Custom Icons"
+
+    # 创建文件夹
+    if not create_folder(custom_xaml_path):
+        logger.error("未能创建自定义 Xaml 页面文件夹")
+    if not create_folder(custom_icon_path):
+        logger.error("未能创建自定义图标文件夹")
 
     # 开启 Xaml 热更新
-    if is_hot_updata:
+    if is_hot_update:
         if hasattr(sys, "_MEIPASS"):
             watcher = XamlWatcher(
                 watch_paths=[custom_xaml_path],
-                callback=lambda *args, **kwargs: on_xaml_change(*args, app=app, **kwargs),
+                callback=lambda *args, **kwargs: on_xaml_change(
+                    *args, app=app, **kwargs
+                ),
             )
         else:
             watcher = XamlWatcher(
                 watch_paths=["./xaml", custom_xaml_path],
-                callback=lambda *args, **kwargs: on_xaml_change(*args, app=app, **kwargs),
+                callback=lambda *args, **kwargs: on_xaml_change(
+                    *args, app=app, **kwargs
+                ),
             )
         watcher.start()
 
     # 从配置文件读取并设置主题
     apply_config(app)
+
+    # 应用图标列表
+    apply_icons(app)
 
     # 注册前端变量变化处理器
     register_handlers(app)
@@ -95,7 +109,7 @@ if __name__ == "__main__":
         sys.exit(0)
 
     # 读取配置
-    hot_updata = read_config("DEBUG", "hot_updata", False)
+    hot_update = read_config("DEBUG", "hot_updata", False)
 
     # 运行程序
-    main(hot_updata)
+    main(hot_update)

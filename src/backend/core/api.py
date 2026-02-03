@@ -1,11 +1,11 @@
 # src.backend.core.api
 """接收前端请求"""
 
+import time
 from webview import FileDialog
 from loguru import logger
-from backend.utils import restart_program
-from .pages import get_custom_pages
-from .handlers import apply_config, general_change, send_command, add_page, remove_page
+from backend.utils import restart_program, get_file_list, get_cache_path
+from .handlers import general_change, send_command, add_page, remove_page
 
 
 def register_handlers(app) -> None:
@@ -37,7 +37,10 @@ def register_handlers(app) -> None:
 
     @app.onValueChange("add_page")
     def add_page_handler(_key, _old_value, _new_value) -> None:
-        xaml_path = app.api._window.create_file_dialog(FileDialog.OPEN)
+        xaml_path = app.api._window.create_file_dialog(
+            FileDialog.OPEN,
+            file_types=['Allowed files (*.xaml;*.zip)'],
+        )
         if not xaml_path:
             logger.info("取消添加页面")
             return
@@ -50,7 +53,9 @@ def register_handlers(app) -> None:
         key_id = int(key.split("_")[1])
 
         # 获取路径
-        file_path = get_custom_pages()
+        file_path = get_file_list(
+            get_cache_path(is_path=True) / "Custom Xaml", file_extension="xaml"
+        )
 
         remove_page(app, file_path[key_id])
         restart_program()
