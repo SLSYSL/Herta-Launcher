@@ -1,7 +1,6 @@
 <h1 align="center">黑塔终端</h1>
 
-> 对游戏进行自动化操作的辅助工具
-
+> 对游戏进行自动化操作的辅助工具  
 > 本项目将 [PyWebWinUI3](https://github.com/Haruna5718/PyWebWinUI3) 作为依赖且进行了修改
 
 ## 项目特点
@@ -11,6 +10,9 @@
 
 ## 运行要求
 - Windows 10 1809+
+
+## 获取 XAML 页面
+- 你可以在本项目的 [XAML 文件夹](./XAML) 中获取到所有已编写的 XAML 页面
 
 ## 用户页面
 ![用户页面](./img/ui.png)
